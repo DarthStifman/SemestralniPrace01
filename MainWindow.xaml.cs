@@ -22,7 +22,14 @@ namespace SemestralniPrace01
     {
         public MainWindow()
         {
+            
             InitializeComponent();
+           
+        }
+
+        private void BtnNewMc_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
