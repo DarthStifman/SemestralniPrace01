@@ -13,3 +13,7 @@ C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\De
 C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\SemestralniPrace01.csproj.GenerateResource.Cache
 C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\SemestralniPrace01.exe
 C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\SemestralniPrace01.pdb
+C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\MeetingCenterDialogWindow.g.cs
+C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\MeetingRoomDialogWindow.g.cs
+C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\MeetingCenterDialogWindow.baml
+C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\MeetingRoomDialogWindow.baml

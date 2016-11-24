@@ -29,40 +29,40 @@
         </StackPanel>
         
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
-            <Label Name="LbMeetingCenters" Margin="5,0">Meeting Centers</Label>
+            <Label Name="LbMeetingCenters" Margin="5,0" FontWeight="Bold">Meeting Centers</Label>
             <DataGrid x:Name="DgMeetingCenters" Height="270" Width ="420" Margin="5,0"/>
             
             <Button x:Name="BtnNewMc" Content="New" Height="18" Margin="10,10,375,0" FontSize="9" Click="BtnNewMc_Click"/>
             <Button x:Name="BtnEditMc" Content="Edit" Height="18" Margin="80,-18,305,0" FontSize="9"/>
             <Button x:Name="BtnDeleteMc" Content="Delete" Height="18" Margin="375,-18,10,0" FontSize="9"/>
             
-            <Label Name="LbMeetingCenterDeatils" Margin="5,20,0,-5">Meeting Center Details</Label>
-            <Label Name="LbNameMc" FontSize="9" Margin="5">Name</Label>
+            <Label Name="LbMeetingCenterDeatils" Margin="5,20,0,-5" FontWeight="Bold">Meeting Center Details</Label>
+            <Label Name="LbNameMc" FontSize="9" Margin="5" FontWeight="Bold">Name</Label>
             <TextBox x:Name="TbNameMc" Height="18" Margin="10,-8,180,0"></TextBox>
-            <Label Name="LbCodeMc" FontSize="9" Margin="5">Code</Label>
+            <Label Name="LbCodeMc" FontSize="9" Margin="5" FontWeight="Bold">Code</Label>
             <TextBox x:Name="TbCodeMc" Height="18" Margin="10,-8,180,0"></TextBox>
-            <Label Name="LbDescriptionMc" FontSize="9" Margin="5">Description</Label>
+            <Label Name="LbDescriptionMc" FontSize="9" Margin="5" FontWeight="Bold">Description</Label>
             <TextBox x:Name="TbDescriptionMc" Height="18" Margin="10,-8,180,0"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Margin="0,0,8,0">
-            <Label Name="LbMeetingRooms" Margin="5,0">Meeting Rooms</Label>
+            <Label Name="LbMeetingRooms" Margin="5,0" FontWeight="Bold">Meeting Rooms</Label>
             <DataGrid x:Name="DgMeetingRooms" Height="270" Width="420"/>
 
-            <Button x:Name="BtnNewMR" Content="New" Height="18" Margin="5,10,375,0" FontSize="9"/>
+            <Button x:Name="BtnNewMR" Content="New" Height="18" Margin="5,10,375,0" FontSize="9" Click="BtnNewMR_Click"/>
             <Button x:Name="BtnEditMR" Content="Edit" Height="18" Margin="75,-18,305,0" FontSize="9"/>
             <Button x:Name="BtnDeleteMR" Content="Delete" Height="18" Margin="370,-18,7,0" FontSize="9"/>
 
-            <Label Name="LbMeetingRoomDeatils" Margin="2,20,0,-7">Meeting Room Details</Label>
-            <Label Name="LbNameMr" FontSize="9" Margin="2,5">Name</Label>
+            <Label Name="LbMeetingRoomDeatils" Margin="2,20,0,-7" FontWeight="Bold">Meeting Room Details</Label>
+            <Label Name="LbNameMr" FontSize="9" Margin="2,5" FontWeight="Bold">Name</Label>
             <TextBox x:Name="TbNameMr" Height="18" Margin="7,-8,170,0"></TextBox>
-            <Label Name="LbCodeMr" FontSize="9" Margin="2,5">Code</Label>
+            <Label Name="LbCodeMr" FontSize="9" Margin="2,5" FontWeight="Bold">Code</Label>
             <TextBox x:Name="TbCodeMr" Height="18" Margin="7,-8,170,0"></TextBox>
-            <Label Name="LbDescriptionMr" FontSize="9" Margin="2,5">Description</Label>
+            <Label Name="LbDescriptionMr" FontSize="9" Margin="2,5" FontWeight="Bold">Description</Label>
             <TextBox x:Name="TbDescriptionMr" Height="18" Margin="7,-8,170,0"></TextBox>
-            <Label Name="LbCapacity" FontSize="9" Margin="2,5">Capacity</Label>
+            <Label Name="LbCapacity" FontSize="9" Margin="2,5" FontWeight="Bold">Capacity</Label>
             <TextBox x:Name="TbCapacity" Height="18" Margin="7,-8,170,0"></TextBox>
-            <CheckBox x:Name="CbVideoConference" Margin="7,10" FontSize="9">Video Conference</CheckBox>
+            <CheckBox x:Name="ChbVideoConference" Margin="7,10" FontSize="9" FontWeight="Bold">Video Conference</CheckBox>
 
         </StackPanel>
 

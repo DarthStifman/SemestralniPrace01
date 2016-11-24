@@ -24,12 +24,19 @@ namespace SemestralniPrace01
         {
             
             InitializeComponent();
-           
+            
         }
 
         private void BtnNewMc_Click(object sender, RoutedEventArgs e)
         {
-            
+            MeetingCenterDialogWindow newMeetingCenter = new MeetingCenterDialogWindow();
+            newMeetingCenter.ShowDialog();
+        }
+
+        private void BtnNewMR_Click(object sender, RoutedEventArgs e)
+        {
+            MeetingRoomDialogWindow newMeetingRoom = new MeetingRoomDialogWindow();
+            newMeetingRoom.ShowDialog();
         }
     }
 }
