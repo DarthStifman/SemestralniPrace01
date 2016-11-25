@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace SemestralniPrace01
 {
-    class MeetingCenter : Building
+    public class MeetingCenter
     {
 
-        public List<MeetingRoom> MeetingRooms { get; set; } = new List<MeetingRoom>();
 
-        public MeetingCenter(string name, string code, string description, List<MeetingRoom> meetingRooms) : base(name, code, description)
+        private string Name { get; set; }
+        private string Code { get; set; }
+        private string Description { get; set; }
+
+        public MeetingCenter(string name, string code, string description)
         {
-            MeetingRooms = meetingRooms;
+            Name = name;
+            Code = code;
+            Description = description;
         }
     }
 }

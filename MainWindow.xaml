@@ -20,7 +20,7 @@
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
             <Menu>
                 <MenuItem Header="File">
-                    <MenuItem Header="Import Data"></MenuItem>
+                    <MenuItem Header="Import Data" Click="MenuItem_Click"></MenuItem>
                     <MenuItem Header="Save"></MenuItem>
                     <Separator />
                     <MenuItem Header="Exit" ></MenuItem>
@@ -30,7 +30,7 @@
         
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
             <Label Name="LbMeetingCenters" Margin="5,0" FontWeight="Bold">Meeting Centers</Label>
-            <DataGrid x:Name="DgMeetingCenters" Height="270" Width ="420" Margin="5,0"/>
+            <ListBox x:Name="DgMeetingCenters" Height="270" Width ="420" Margin="5,0"/>
             
             <Button x:Name="BtnNewMc" Content="New" Height="18" Margin="10,10,375,0" FontSize="9" Click="BtnNewMc_Click"/>
             <Button x:Name="BtnEditMc" Content="Edit" Height="18" Margin="80,-18,305,0" FontSize="9"/>
@@ -47,7 +47,7 @@
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Margin="0,0,8,0">
             <Label Name="LbMeetingRooms" Margin="5,0" FontWeight="Bold">Meeting Rooms</Label>
-            <DataGrid x:Name="DgMeetingRooms" Height="270" Width="420"/>
+            <ListBox x:Name="DgMeetingRooms" Height="270" Width="420"/>
 
             <Button x:Name="BtnNewMR" Content="New" Height="18" Margin="5,10,375,0" FontSize="9" Click="BtnNewMR_Click"/>
             <Button x:Name="BtnEditMR" Content="Edit" Height="18" Margin="75,-18,305,0" FontSize="9"/>

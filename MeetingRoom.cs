@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SemestralniPrace01
 {
-    class MeetingRoom: Building
+    public class MeetingRoom: MeetingCenter
     {
         private int Capacity { get; set; }
         private bool VideoConference { get; set; }
