@@ -15,8 +15,8 @@
             <Label Name="LbDescriptionDialogMc" FontWeight="Bold">Description</Label>
             <TextBox Name="TbDescriptionDialogMc" Height="60" Width="250" HorizontalAlignment="Left" Margin="5,0"></TextBox>
 
-            <Button Name="BtnOkMc" Width="80" Margin="0,20,170,0">OK</Button>
-            <Button Name="BtnCancelMc" Width="80" Margin="160,-22,0,0">Cancel</Button>
+            <Button Name="BtnOkMc" Width="80" Margin="0,20,170,0" Click="BtnOkMc_Click">OK</Button>
+            <Button Name="BtnCancelMc" Width="80" Margin="160,-22,0,0" Click="BtnCancelMc_Click">Cancel</Button>
         </StackPanel>
     </Grid>
 </Window>

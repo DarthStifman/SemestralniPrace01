@@ -8,15 +8,21 @@ namespace SemestralniPrace01
 {
     public class MeetingRoom: MeetingCenter
     {
-        private int Capacity { get; set; }
-        private bool VideoConference { get; set; }
-        public List<MeetingCenter> MeetingCenters { get; set; } = new List<MeetingCenter>();
+        public int Capacity { get; set; }
+        public bool VideoConference { get; set; }
+        public string CentreCode { get; set; }
 
-        public MeetingRoom(string name, string code, string description, int capacity, bool videoConference, List<MeetingCenter> meetingCenters) : base(name, code, description)
+        public MeetingRoom(string name, string code, string description, int capacity, bool videoConference, string centerCode) : base(name, code, description)
         {
             Capacity = capacity;
             VideoConference = videoConference;
-            MeetingCenters = meetingCenters;
+            CentreCode = centerCode;
+        }
+
+        //Prepsani metody ToString() tak, aby v listboxu vypsala Name, Code, Capacity a CentreCode
+        public override string ToString()
+        {
+            return Name + "  " + Code + "  " + Capacity + "  " + CentreCode;
         }
     }
 }

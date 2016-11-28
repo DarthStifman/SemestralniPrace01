@@ -34,3 +34,4 @@ C:\Users\David\Documents\Visual Studio 2015\Projects\SemestralniPrace01\Semestra
 C:\Users\David\Documents\Visual Studio 2015\Projects\SemestralniPrace01\SemestralniPrace01\obj\Debug\SemestralniPrace01.g.resources
 C:\Users\David\Documents\Visual Studio 2015\Projects\SemestralniPrace01\SemestralniPrace01\obj\Debug\SemestralniPrace01.Properties.Resources.resources
 C:\Users\David\Documents\Visual Studio 2015\Projects\SemestralniPrace01\SemestralniPrace01\obj\Debug\SemestralniPrace01.csproj.GenerateResource.Cache
+C:\Users\Stifman\Documents\Visual Studio 2015\Projects\SemestralniPrace01\obj\Debug\GeneratedInternalTypeHelper.g.cs

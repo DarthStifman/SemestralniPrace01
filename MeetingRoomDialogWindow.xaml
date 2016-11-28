@@ -17,12 +17,12 @@
             <Label Name="LbCapacityDialogMr" FontWeight="Bold">Capacity</Label>
             <TextBox Name="TbCapacityDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0"></TextBox>
             <Label Name="LbMeetingCenterDialogMr" FontWeight="Bold">Meeting Center</Label>
-            <ComboBox Name="CbMeetingCenterDialogMr" Width="250" HorizontalAlignment="Left" Margin="5,0"></ComboBox>
+            <ComboBox Name="CbMeetingCenterDialogMr" Width="250" HorizontalAlignment="Left" Margin="5,0" SelectionChanged="CbMeetingCenterDialogMr_SelectionChanged"></ComboBox>
             <CheckBox x:Name="ChbVideoConferenceDialogMr" Margin="7,10" FontSize="9" FontWeight="Bold">Video Conference</CheckBox>
             
 
-            <Button Name="BtnOkMr" Width="80" Margin="0,5,170,0">OK</Button>
-            <Button Name="BtnCancelMr" Width="80" Margin="160,-22,0,0">Cancel</Button>
+            <Button Name="BtnOkMr" Width="80" Margin="0,5,170,0" Click="BtnOkMr_Click">OK</Button>
+            <Button Name="BtnCancelMr" Width="80" Margin="160,-22,0,0" Click="BtnCancelMr_Click">Cancel</Button>
         </StackPanel>
     </Grid>
 </Window>

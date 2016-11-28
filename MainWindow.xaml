@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SemestralniPrace01"
         mc:Ignorable="d"
-        Title="MainWindow" Height="625" Width="890">
+        Closing="Window_Closing"        
+        Title="MainWindow" Height="655" Width="890">
     <Grid>
         <Grid.ColumnDefinitions>            
             <ColumnDefinition Width="440"></ColumnDefinition>
@@ -21,7 +22,7 @@
             <Menu>
                 <MenuItem Header="File">
                     <MenuItem Header="Import Data" Click="MenuItem_Click"></MenuItem>
-                    <MenuItem Header="Save"></MenuItem>
+                    <MenuItem Header="Save" Click="MenuItem_Click_1"></MenuItem>
                     <Separator />
                     <MenuItem Header="Exit" ></MenuItem>
                 </MenuItem>
@@ -30,44 +31,42 @@
         
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
             <Label Name="LbMeetingCenters" Margin="5,0" FontWeight="Bold">Meeting Centers</Label>
-            <ListBox x:Name="DgMeetingCenters" Height="270" Width ="420" Margin="5,0"/>
+            <ListBox x:Name="LboxMeetingCenters" Height="270" Width ="420" Margin="5,0" SelectionChanged="LboxMeetingCenters_SelectionChanged"/>
             
             <Button x:Name="BtnNewMc" Content="New" Height="18" Margin="10,10,375,0" FontSize="9" Click="BtnNewMc_Click"/>
-            <Button x:Name="BtnEditMc" Content="Edit" Height="18" Margin="80,-18,305,0" FontSize="9"/>
-            <Button x:Name="BtnDeleteMc" Content="Delete" Height="18" Margin="375,-18,10,0" FontSize="9"/>
+            <Button x:Name="BtnEditMc" Content="Edit" Height="18" Margin="80,-18,305,0" FontSize="9" Click="BtnEditMc_Click"/>
+            <Button x:Name="BtnDeleteMc" Content="Delete" Height="18" Margin="375,-18,10,0" FontSize="9" Click="BtnDeleteMc_Click"/>
             
             <Label Name="LbMeetingCenterDeatils" Margin="5,20,0,-5" FontWeight="Bold">Meeting Center Details</Label>
             <Label Name="LbNameMc" FontSize="9" Margin="5" FontWeight="Bold">Name</Label>
-            <TextBox x:Name="TbNameMc" Height="18" Margin="10,-8,180,0"></TextBox>
+            <TextBox x:Name="TbNameMc" Height="22" Margin="10,-8,180,0" IsEnabled="False"></TextBox>
             <Label Name="LbCodeMc" FontSize="9" Margin="5" FontWeight="Bold">Code</Label>
-            <TextBox x:Name="TbCodeMc" Height="18" Margin="10,-8,180,0"></TextBox>
+            <TextBox x:Name="TbCodeMc" Height="22" Margin="10,-8,180,0" IsEnabled="False"></TextBox>
             <Label Name="LbDescriptionMc" FontSize="9" Margin="5" FontWeight="Bold">Description</Label>
-            <TextBox x:Name="TbDescriptionMc" Height="18" Margin="10,-8,180,0"></TextBox>
+            <TextBox x:Name="TbDescriptionMc" Height="66" Margin="10,-8,180,0" IsEnabled="False" TextWrapping="Wrap"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Margin="0,0,8,0">
             <Label Name="LbMeetingRooms" Margin="5,0" FontWeight="Bold">Meeting Rooms</Label>
-            <ListBox x:Name="DgMeetingRooms" Height="270" Width="420"/>
+            <ListBox x:Name="LboxMeetingRooms" Height="270" Width="420" SelectionChanged="LboxMeetingRooms_SelectionChanged" />
 
             <Button x:Name="BtnNewMR" Content="New" Height="18" Margin="5,10,375,0" FontSize="9" Click="BtnNewMR_Click"/>
-            <Button x:Name="BtnEditMR" Content="Edit" Height="18" Margin="75,-18,305,0" FontSize="9"/>
-            <Button x:Name="BtnDeleteMR" Content="Delete" Height="18" Margin="370,-18,7,0" FontSize="9"/>
+            <Button x:Name="BtnEditMR" Content="Edit" Height="18" Margin="75,-18,305,0" FontSize="9" Click="BtnEditMR_Click"/>
+            <Button x:Name="BtnDeleteMR" Content="Delete" Height="18" Margin="370,-18,7,0" FontSize="9" Click="BtnDeleteMR_Click"/>
 
             <Label Name="LbMeetingRoomDeatils" Margin="2,20,0,-7" FontWeight="Bold">Meeting Room Details</Label>
             <Label Name="LbNameMr" FontSize="9" Margin="2,5" FontWeight="Bold">Name</Label>
-            <TextBox x:Name="TbNameMr" Height="18" Margin="7,-8,170,0"></TextBox>
+            <TextBox x:Name="TbNameMr" Height="22" Margin="7,-8,170,0" IsEnabled="False"></TextBox>
             <Label Name="LbCodeMr" FontSize="9" Margin="2,5" FontWeight="Bold">Code</Label>
-            <TextBox x:Name="TbCodeMr" Height="18" Margin="7,-8,170,0"></TextBox>
+            <TextBox x:Name="TbCodeMr" Height="22" Margin="7,-8,170,0" IsEnabled="False"></TextBox>
             <Label Name="LbDescriptionMr" FontSize="9" Margin="2,5" FontWeight="Bold">Description</Label>
-            <TextBox x:Name="TbDescriptionMr" Height="18" Margin="7,-8,170,0"></TextBox>
+            <TextBox x:Name="TbDescriptionMr" Height="44" Margin="7,-8,170,0" IsEnabled="False" TextWrapping="Wrap"></TextBox>
             <Label Name="LbCapacity" FontSize="9" Margin="2,5" FontWeight="Bold">Capacity</Label>
-            <TextBox x:Name="TbCapacity" Height="18" Margin="7,-8,170,0"></TextBox>
-            <CheckBox x:Name="ChbVideoConference" Margin="7,10" FontSize="9" FontWeight="Bold">Video Conference</CheckBox>
+            <TextBox x:Name="TbCapacity" Height="22" Margin="7,-8,170,0" IsEnabled="False"></TextBox>
+            <CheckBox x:Name="ChbVideoConference" Margin="7,10" FontSize="9" FontWeight="Bold" IsEnabled="False">Video Conference</CheckBox>
 
         </StackPanel>
-
         
     </Grid>
-
     
 </Window>
