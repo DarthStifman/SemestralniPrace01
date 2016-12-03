@@ -70,5 +70,41 @@ namespace SemestralniPrace01
             Close();
             centersChange = false;
         }
+
+        private void TbCodeDialogMc_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((!rgx.IsMatch(TbCodeDialogMc.Text)))
+            {
+                TbCodeDialogMc.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbCodeDialogMc.Background = Brushes.White;
+            }
+        }
+
+        private void TbNameDialogMc_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((TbNameDialogMc.Text.Length < 2) || (TbNameDialogMc.Text.Length > 100))
+            {
+                TbNameDialogMc.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbNameDialogMc.Background = Brushes.White;
+            }
+        }
+
+        private void TbDescriptionDialogMc_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((TbDescriptionDialogMc.Text.Length < 10) || (TbDescriptionDialogMc.Text.Length > 300))
+            {
+                TbDescriptionDialogMc.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbDescriptionDialogMc.Background = Brushes.White;
+            }
+        }
     }
 }

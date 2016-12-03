@@ -28,7 +28,7 @@ namespace SemestralniPrace01
         public List<MeetingRoom> newRoom = new List<MeetingRoom>();
         public bool roomsChange;
         //Regularni vyraz pro Code
-        Regex rgx = new Regex("[a-zA-Z_:-]{5, 50}");
+        Regex rgx = new Regex("[a-zA-Z_:-]{5,50}");
 
         //Pri  stisknuti talcitka OK overi delku vsech retezcu a regularni vyraz. 
         //Nacte data z textboxu, vytvori instanci tridy MeetingRoom a ulozi ji do kolekce newRoom. 
@@ -89,7 +89,54 @@ namespace SemestralniPrace01
         private void CbMeetingCenterDialogMr_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
-            
+        }
+
+        private void TbNameDialogMr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((TbNameDialogMr.Text.Length < 2) || (TbNameDialogMr.Text.Length > 100))
+            {
+                TbNameDialogMr.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbNameDialogMr.Background = Brushes.White;
+            }
+        }
+
+        private void TbCodeDialogMr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((!rgx.IsMatch(TbCodeDialogMr.Text)))
+            {
+                TbCodeDialogMr.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbCodeDialogMr.Background = Brushes.White;
+            }
+        }
+
+        private void TbDescriptionDialogMr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((TbDescriptionDialogMr.Text.Length < 10) || (TbDescriptionDialogMr.Text.Length > 300))
+            {
+                TbDescriptionDialogMr.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbDescriptionDialogMr.Background = Brushes.White;
+            }
+        }
+
+        private void TbCapacityDialogMr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((TbCapacityDialogMr.Text.Length < 1) || (TbCapacityDialogMr.Text.Length > 100))
+            {
+                TbCapacityDialogMr.Background = Brushes.LightCoral;
+            }
+            else
+            {
+                TbCapacityDialogMr.Background = Brushes.White;
+            }
         }
     }
 }

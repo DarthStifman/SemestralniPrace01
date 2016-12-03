@@ -9,13 +9,13 @@
     <Grid>
         <StackPanel>
             <Label Name="LbNameDialogMr" FontWeight="Bold">Name</Label>
-            <TextBox Name="TbNameDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0"></TextBox>
+            <TextBox Name="TbNameDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbNameDialogMr_TextChanged"></TextBox>
             <Label Name="LbCodeDialogMr" FontWeight="Bold">Code</Label>
-            <TextBox Name="TbCodeDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0"></TextBox>
+            <TextBox Name="TbCodeDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbCodeDialogMr_TextChanged"></TextBox>
             <Label Name="LbDescriptionDialogMr" FontWeight="Bold">Description</Label>
-            <TextBox Name="TbDescriptionDialogMr" Height="40" Width="250" HorizontalAlignment="Left" Margin="5,0"></TextBox>
+            <TextBox Name="TbDescriptionDialogMr" Height="40" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbDescriptionDialogMr_TextChanged"></TextBox>
             <Label Name="LbCapacityDialogMr" FontWeight="Bold">Capacity</Label>
-            <TextBox Name="TbCapacityDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0"></TextBox>
+            <TextBox Name="TbCapacityDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbCapacityDialogMr_TextChanged"></TextBox>
             <Label Name="LbMeetingCenterDialogMr" FontWeight="Bold">Meeting Center</Label>
             <ComboBox Name="CbMeetingCenterDialogMr" Width="250" HorizontalAlignment="Left" Margin="5,0" SelectionChanged="CbMeetingCenterDialogMr_SelectionChanged"></ComboBox>
             <CheckBox x:Name="ChbVideoConferenceDialogMr" Margin="7,10" FontSize="9" FontWeight="Bold">Video Conference</CheckBox>
