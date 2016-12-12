@@ -1,0 +1,45 @@
+﻿<Window x:Class="SemestralniPrace01.MeetingPlanningDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SemestralniPrace01"
+        mc:Ignorable="d"
+        Title="MeetingPlanningDialogWindow" Height="545" Width="350">
+    
+    <Grid>
+        <StackPanel>
+            
+            <Label FontSize="12" Margin="5,0" FontWeight="Bold">Meeting Center</Label>
+            <TextBox Name="TbMeetingCenterNewMeeting" Width="250" Margin="0,0,70,0" IsEnabled="False"></TextBox>
+            <Label FontSize="12" Margin="5,0" FontWeight="Bold">Meeting Room</Label>
+            <TextBox Name="TbMeetingRoomNewMeeting" Width="250" Margin="0,0,70,0" IsEnabled="False"></TextBox>
+            <Label FontSize="12" Margin="5,0" FontWeight="Bold">Date</Label>
+            <TextBox Name="TbDateNewMeeting" Width="200" Margin="0,0,120,0" IsEnabled="False"></TextBox>
+
+            <Label FontSize="12" Margin="5,0" FontWeight="Bold">From - To</Label>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="TbMeetingHoursFrom" Height="25" Width="35" Margin="10,0,0,0" ></TextBox>
+                <Label FontSize="10" Margin="0">:</Label>
+                <TextBox Name="TbMeetingMinutesFrom" Height="25" Width="35" Margin="0"></TextBox>
+                <Label FontSize="10" Margin="10,0,10,0">-</Label>
+                <TextBox Name="TbMeetingHoursTo" Height="25" Width="35" Margin="0" ></TextBox>
+                <Label FontSize="10" Margin="0">:</Label>
+                <TextBox Name="TbMeetingMinutesTo" Height="25" Width="35" Margin="0" ></TextBox>
+            </StackPanel>
+            
+
+            <Label Name="LbMeetingExpectedPersonsCount" FontSize="12" Margin="5,0" FontWeight="Bold">Expected Persons Count</Label>
+            <TextBox Name="TbMeetingExpectedPersonsCount" Width="250" Margin="0,0,70,0"></TextBox>
+            <Label Name="LbMeetingCustomer" FontSize="12" Margin="5,0" FontWeight="Bold">Customer</Label>
+            <TextBox Name="TbMeetingCustomer" Width="250" Margin="0,0,70,0" ></TextBox>
+            <CheckBox x:Name="ChbMeetingVideoConferenceMeeting" Margin="11,10" FontSize="10" FontWeight="Bold">Video Conference</CheckBox>
+            <Label Name="LbMeetingNote" FontSize="12" Margin="5,0" FontWeight="Bold">Note</Label>
+            <TextBox Name="TbMeetingNote" Height="100" Width="320" Margin="10,0,20,0" TextWrapping="Wrap"></TextBox>
+
+            <Button Name="BtnOkMeeting" Height="25" Width="80" Margin="0,10,240,0" Click="BtnOkMeeting_Click">OK</Button>
+            <Button Name="BtnCancelMeeting" Height="25" Width="80" Margin="235,-25,0,0" Click="BtnCancelMeeting_Click">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>

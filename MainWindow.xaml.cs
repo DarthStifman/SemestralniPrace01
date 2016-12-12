@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace SemestralniPrace01
 {
@@ -26,7 +27,10 @@ namespace SemestralniPrace01
     {
         private MeetingCenter selectedCenter = null;
         private MeetingRoom selectedRoom = null;
-                
+        private MeetingPlan selectedMeeting = null;
+
+        private string selectedCenterPlanning = null;
+        private string selectedRoomPlanning = null;    
         
         public MainWindow()
         {
@@ -36,9 +40,14 @@ namespace SemestralniPrace01
             if (File.Exists("save.csv"))
             {
                 LoadData("save.csv");
-            }            
+            }
+            if (File.Exists("xmlMeetings.xml"))
+            {
+                LoadXmlData();
+            }           
 
             LoadCenters();
+            FillCenterComboBox();
 
             saveState = false;
             changes = false;
@@ -47,6 +56,7 @@ namespace SemestralniPrace01
         //private ObservableCollection<MeetingCenter> meetingCenters = new ObservableCollection<MeetingCenter>();
         List<MeetingCenter> meetingCenters = new List<MeetingCenter>();
         List<MeetingRoom> meetingRooms = new List<MeetingRoom>();
+        List<MeetingPlan> meetingPlans = new List<MeetingPlan>();
         
         //Podle savState je zjisteno, jestli byla data uz ulozena
         private bool saveState;
@@ -61,11 +71,39 @@ namespace SemestralniPrace01
             foreach (MeetingCenter center in meetingCenters)
             {
                 LboxMeetingCenters.Items.Add(center);
-            }
-           
+            }           
         }
+
+        //Nacte vsechna Meeting Centers do comboboxu v Meetings Planning
+        public void FillCenterComboBox()
+        {
+            CbMeetingCenterPlanning.Items.Clear();
+            foreach (MeetingCenter center in meetingCenters)
+            {
+                if (center != null)
+                {
+                    CbMeetingCenterPlanning.Items.Add(center.Code);
+                }
+            }
+        }
+
+        //Nacte vsechna Meeting Centers, ktera nalezi vybranemu Meeting Center do comboboxu v Meetings Planning
+        public void FillRoomComboBox(string centerCode)
+        {
+            CbMeetingRoomPlanning.Items.Clear();
+            foreach (MeetingRoom room in meetingRooms)
+            {
+                if (room.CentreCode == centerCode)
+                {
+                    CbMeetingRoomPlanning.Items.Add(room.Code);
+                }
+            }
+
+
+        }
+
         //Nacteni dat z kolekce rooms do listboxu
-        //Iterace zkrze vsechny Meeting Rooms v kolekci
+        //Iterace skrze vsechny Meeting Rooms v kolekci
         private void LoadRooms(string centerCode)
         {
             LboxMeetingRooms.Items.Clear();
@@ -77,6 +115,27 @@ namespace SemestralniPrace01
                 }
             }
         }
+
+        //Nacteni dat z kolekce meetings do listboxu
+        //Iterace skrze vsechny Meetingy v kolekci
+        private void LoadMeetings(string roomCode)
+        {
+            LboxMeetings.Items.Clear();
+            meetingPlans.Sort((x, y) => DateTime.Compare(x.TimeFrom, y.TimeFrom));
+
+            foreach (MeetingPlan meeting in meetingPlans)
+            {
+                if (meeting.MeetingRoomCode == roomCode)
+                {
+                    if (meeting.Date.Date == DpDate.SelectedDate)
+                    {
+                        LboxMeetings.Items.Add(meeting);
+                    }                    
+                }
+            }            
+        }
+
+       
 
         //Pri smazani centra smaze k nemu nalezici mistnosti
         private void RemoveRooms(string removedCenterCode)
@@ -93,6 +152,19 @@ namespace SemestralniPrace01
             TbDescriptionMr.Clear();
             TbCapacity.Clear();
             ChbVideoConference.IsChecked = false;
+        }
+
+        //Vymaze data z textbnoxu Meetings Detail
+        private void ClearMeetingsDetailTb()
+        {
+            TbHoursFrom.Clear();
+            TbMinutesFrom.Clear();
+            TbHoursTo.Clear();
+            TbMinutesTo.Clear();
+            TbExpectedPersonsCount.Clear();
+            TbCustomer.Clear();
+            ChbVideoConferencePlanning.IsChecked = false;
+            TbNote.Clear();
         }
 
         //Ulozeni dat do souboru
@@ -220,6 +292,7 @@ namespace SemestralniPrace01
         private void BtnNewMR_Click(object sender, RoutedEventArgs e)
         {
             MeetingRoomDialogWindow newMeetingRoom = new MeetingRoomDialogWindow();
+            selectedCenter = (MeetingCenter)LboxMeetingCenters.SelectedItem;
             foreach (MeetingCenter center in meetingCenters)
             {
                 newMeetingRoom.CbMeetingCenterDialogMr.Items.Add(center.Code);
@@ -234,7 +307,8 @@ namespace SemestralniPrace01
 
             if (newMeetingRoom.roomsChange == true)
                 changes = true;
-            
+
+            LoadRooms(selectedCenter.Code);
         }
 
         //Otevreni okna pro vyber souboru s daty a jejich nacteni
@@ -311,7 +385,7 @@ namespace SemestralniPrace01
             }
             else
             {
-                MessageBox.Show("You have select a Meeting Center!");
+                MessageBox.Show("You must select a Meeting Center!");
             }
             
         }
@@ -320,6 +394,7 @@ namespace SemestralniPrace01
         private void BtnEditMR_Click(object sender, RoutedEventArgs e)
         {
             selectedRoom = (MeetingRoom)LboxMeetingRooms.SelectedItem;
+            selectedCenter = (MeetingCenter)LboxMeetingCenters.SelectedItem;
             MeetingRoomDialogWindow editMeetingRoom = new MeetingRoomDialogWindow();
 
             if (selectedRoom != null)
@@ -346,10 +421,12 @@ namespace SemestralniPrace01
 
                 if (editMeetingRoom.roomsChange == true)
                     changes = true;
+
+                LoadRooms(selectedCenter.Code);
             }
             else
             {
-                MessageBox.Show("You have select a Meeting Room!");
+                MessageBox.Show("You must select a Meeting Room!");
             }
             
            
@@ -358,38 +435,53 @@ namespace SemestralniPrace01
         //Smaze vybrane centrum
         private void BtnDeleteMc_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure?", "Delete Meeting Center", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            selectedCenter = (MeetingCenter)LboxMeetingCenters.SelectedItem;
+
+            if (selectedCenter != null)
             {
-                selectedCenter = (MeetingCenter)LboxMeetingCenters.SelectedItem;
-                if (selectedCenter != null)
+                if (MessageBox.Show("Are you sure?", "Delete Meeting Center", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     RemoveRooms(selectedCenter.Code);
+
+                    meetingCenters.Remove(selectedCenter);
+                    LboxMeetingCenters.Items.Remove(selectedCenter);
+
+                    ClearRoomTb();
+
+                    TbNameMc.Clear();
+                    TbCodeMc.Clear();
+                    TbDescriptionMc.Clear();
+
+                    changes = true;
                 }
-                meetingCenters.Remove(selectedCenter);
-                LboxMeetingCenters.Items.Remove(selectedCenter);
-
-                ClearRoomTb();
-
-                TbNameMc.Clear();
-                TbCodeMc.Clear();
-                TbDescriptionMc.Clear();
-
-                changes = true;
             }
+            else
+            {
+                MessageBox.Show("You must select a Meeting Center to delete first!");
+            }
+            
         }
 
         //Smaze vybranou mistnost
         private void BtnDeleteMR_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure?", "Delete Meeting Room", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            selectedRoom = (MeetingRoom)LboxMeetingRooms.SelectedItem;
+
+            if (selectedRoom != null)
             {
-                selectedRoom = (MeetingRoom)LboxMeetingRooms.SelectedItem;
-                meetingRooms.Remove(selectedRoom);
-                LboxMeetingRooms.Items.Remove(selectedRoom);
+                if (MessageBox.Show("Are you sure?", "Delete Meeting Room", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    meetingRooms.Remove(selectedRoom);
+                    LboxMeetingRooms.Items.Remove(selectedRoom);
 
-                ClearRoomTb();
+                    ClearRoomTb();
 
-                changes = true;
+                    changes = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("You must select a Meeting Room to delete first!");
             }
             
         }
@@ -398,9 +490,11 @@ namespace SemestralniPrace01
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             SaveToFile();
+            SaveToXml();
             saveState = true;
         }
 
+        //Pri uzavreni hlavniho okna se zepta na ulozeni dat pokud doslo k neajkym zmenam
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (saveState == false && changes == true)
@@ -410,6 +504,320 @@ namespace SemestralniPrace01
                     SaveToFile();
                 }
             }
+        }
+
+        //Otevre dialogove okno pro vytvoreni noveho meetingu a nacte vybrana data (Meeting Center, Meeting Room a datum)
+        private void BtnNewMeeting_Click(object sender, RoutedEventArgs e)
+        {
+            MeetingPlanningDialogWindow newMeetingPlan = new MeetingPlanningDialogWindow();
+            selectedRoomPlanning = (string)CbMeetingRoomPlanning.SelectedItem;
+            
+
+            newMeetingPlan.TbMeetingCenterNewMeeting.Text = CbMeetingCenterPlanning.Text;
+            newMeetingPlan.TbMeetingRoomNewMeeting.Text = CbMeetingRoomPlanning.Text;
+            newMeetingPlan.TbDateNewMeeting.Text = DpDate.Text;
+
+            foreach (MeetingRoom room in meetingRooms)
+            {
+                if (selectedRoomPlanning == room.Code)
+                {
+                    newMeetingPlan.RoomCapacity = room.Capacity;
+                }
+            }
+
+            newMeetingPlan.meetingsToCompare.Clear();
+            foreach (MeetingPlan meeting in meetingPlans)
+            {
+                if (meeting.Date.Date == DpDate.SelectedDate)
+                {
+                    newMeetingPlan.meetingsToCompare.Add(meeting);
+                }
+            }
+
+            newMeetingPlan.ShowDialog();
+
+            foreach (MeetingPlan plan in newMeetingPlan.newMeeting)
+            {
+                meetingPlans.Add(plan);                
+            }
+            
+
+            LoadMeetings(selectedRoomPlanning);
+        }
+
+        //Pri vybrani Meeting Centra v zalozce pro planovani, vyvola nacteni prislusicich Meeting Rooms do comboboxu
+        private void CbMeetingCenter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedCenterPlanning = (string)CbMeetingCenterPlanning.SelectedItem;
+
+            if (selectedCenterPlanning != null)
+            {
+                FillRoomComboBox(selectedCenterPlanning);
+            }
+        }
+       
+        private void CbMeetingRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedRoomPlanning = (string)CbMeetingRoomPlanning.SelectedItem;
+
+            if (selectedRoomPlanning != null)
+            {
+                LoadMeetings(selectedRoomPlanning);
+            }
+            
+        }
+
+        private void LboxMeetings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedMeeting = (MeetingPlan)LboxMeetings.SelectedItem;
+
+            if (selectedMeeting != null)
+            {
+                TbHoursFrom.Text = selectedMeeting.TimeFrom.ToString("HH");
+                TbMinutesFrom.Text = selectedMeeting.TimeFrom.ToString("mm");
+                TbHoursTo.Text = selectedMeeting.TimeTo.ToString("HH");
+                TbMinutesTo.Text = selectedMeeting.TimeTo.ToString("mm");
+
+                TbExpectedPersonsCount.Text = selectedMeeting.ExpectedPersonsCount.ToString();
+                TbCustomer.Text = selectedMeeting.Customer;
+                ChbVideoConferencePlanning.IsChecked = selectedMeeting.VideoConferencePlan;
+                TbNote.Text = selectedMeeting.Note;
+            }
+
+        }
+
+        private void BtnEditMeeting_Click(object sender, RoutedEventArgs e)
+        {
+            selectedMeeting = (MeetingPlan)LboxMeetings.SelectedItem;
+            selectedRoomPlanning = (string)CbMeetingRoomPlanning.SelectedItem;
+            MeetingPlanningDialogWindow editMeeting = new MeetingPlanningDialogWindow();
+
+            if (selectedMeeting != null)
+            {
+                editMeeting.TbMeetingCenterNewMeeting.Text = CbMeetingCenterPlanning.Text;
+                editMeeting.TbMeetingRoomNewMeeting.Text = CbMeetingRoomPlanning.Text;
+                editMeeting.TbDateNewMeeting.Text = DpDate.Text;
+
+                editMeeting.TbMeetingHoursFrom.Text = selectedMeeting.TimeFrom.ToString("HH");
+                editMeeting.TbMeetingMinutesFrom.Text = selectedMeeting.TimeFrom.ToString("mm");
+                editMeeting.TbMeetingHoursTo.Text = selectedMeeting.TimeTo.ToString("HH");
+                editMeeting.TbMeetingMinutesTo.Text = selectedMeeting.TimeTo.ToString("mm");
+
+                editMeeting.TbMeetingExpectedPersonsCount.Text = selectedMeeting.ExpectedPersonsCount.ToString();
+                editMeeting.TbMeetingCustomer.Text = selectedMeeting.Customer;
+                editMeeting.ChbMeetingVideoConferenceMeeting.IsChecked = selectedMeeting.VideoConferencePlan;
+                editMeeting.TbMeetingNote.Text = selectedMeeting.Note;
+
+                foreach (MeetingRoom room in meetingRooms)
+                {
+                    if (selectedRoomPlanning == room.Code)
+                    {
+                        editMeeting.RoomCapacity = room.Capacity;
+                    }
+                }
+
+                editMeeting.meetingsToCompare.Clear();
+                foreach (MeetingPlan meeting in meetingPlans)
+                {                    
+                    if (meeting.Date.Date == DpDate.SelectedDate)
+                    {
+                        if (selectedMeeting != meeting)
+                        {
+                            editMeeting.meetingsToCompare.Add(meeting);
+                        }
+                        
+                    }
+                }
+
+
+                editMeeting.ShowDialog();
+
+                foreach (MeetingPlan item in editMeeting.newMeeting)
+                {
+                    int index = meetingPlans.IndexOf(selectedMeeting);
+                    meetingPlans[index] = item;
+                }
+
+                LoadMeetings(selectedRoomPlanning);
+                Console.WriteLine();
+            }
+            else
+            {
+                MessageBox.Show("You must select a Meeting!");
+            }
+        }
+
+        private void BtnDeleteMeeting_Click(object sender, RoutedEventArgs e)
+        {
+            selectedMeeting = (MeetingPlan)LboxMeetings.SelectedItem;
+
+            if (selectedMeeting != null)
+            {
+                if (MessageBox.Show("Are you sure?", "Delete Meeting Room", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+
+                    meetingPlans.Remove(selectedMeeting);
+                    LboxMeetings.Items.Remove(selectedMeeting);
+
+                    ClearMeetingsDetailTb();
+
+                    //changes = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("You must select a Meeting to delete first!");
+            }
+            
+        }
+
+        private void DpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedRoomPlanning = (string)CbMeetingRoomPlanning.SelectedItem;
+
+            LoadMeetings(selectedRoomPlanning);
+
+            ClearMeetingsDetailTb();
+        }
+
+
+        private void SaveToXml()
+        {
+            XmlWriter writer = null;
+
+            try
+            {
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+                settings.OmitXmlDeclaration = false;
+                settings.NewLineOnAttributes = false;
+                settings.Encoding = Encoding.UTF8;
+
+                writer = XmlWriter.Create(new StreamWriter("xmlMeetings.xml"), settings);
+
+                writer.WriteStartDocument();
+                writer.WriteStartElement("PlannedMeetings");
+                foreach (MeetingPlan meeting in meetingPlans)
+                {
+                    writer.WriteStartElement("Meeting");
+
+                    writer.WriteStartElement("MeetingCenter");
+                    writer.WriteValue(meeting.MeetingCenterCode);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("MeetingRoom");
+                    writer.WriteValue(meeting.MeetingRoomCode);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("Date");
+                    writer.WriteValue(meeting.Date);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("TimeFrom");
+                    writer.WriteValue(meeting.TimeFrom);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("TimeTo");
+                    writer.WriteValue(meeting.TimeTo);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("ExpectedPersonsCount");
+                    writer.WriteValue(meeting.ExpectedPersonsCount);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("Customer");
+                    writer.WriteValue(meeting.Customer);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("VideoConference");
+                    writer.WriteValue(meeting.VideoConferencePlan);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("Note");
+                    writer.WriteValue(meeting.Note);
+                    writer.WriteEndElement();
+
+                    writer.WriteEndElement();
+                                   
+                }
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+            catch (FileLoadException xmlLoadExc)
+            {
+
+                throw xmlLoadExc;
+            }
+            finally
+            {
+                writer.Close();
+            }
+        }
+
+
+        string meetingCenter;
+        string meetingRoom;
+        DateTime date;
+        DateTime timeFrom;
+        DateTime timeTo;
+        string customer;
+        int persons;
+        bool videoConference;
+        string note;
+
+        private void LoadXmlData()
+        {
+            XmlDocument loadDoc = new XmlDocument();
+            loadDoc.Load("xmlMeetings.xml");
+
+            XmlNode root = loadDoc.DocumentElement;
+            XmlNodeList childs = root.ChildNodes;
+
+            meetingPlans.Clear();
+
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                
+                foreach (XmlNode data in node)
+                {                    
+                    switch (data.Name)
+                    {
+                        case "MeetingCenter":
+                            meetingCenter = data.InnerText;
+                            break;
+                        case "MeetingRoom":
+                            meetingRoom = data.InnerText;
+                            break;
+                        case "Date":
+                            string[] dateSplit = (data.InnerText).Split('T');
+                            date = DateTime.ParseExact(dateSplit[0], "yyyy-MM-dd", null);
+                            date.ToString("dd.MM.yyyy");
+                            break;
+                        case "TimeFrom":
+                            string[] timeFromSplit = (data.InnerText).Split('T');
+                            timeFrom = DateTime.ParseExact(timeFromSplit[0] + " " + timeFromSplit[1], "yyyy-MM-dd HH:mm:ss", null);
+                            timeFrom.ToString("dd.MM.yyyy HH:mm");
+                            break;
+                        case "TimeTo":
+                            string[] timeToSplit = (data.InnerText).Split('T');
+                            timeTo = DateTime.ParseExact(timeToSplit[0] + " " + timeToSplit[1], "yyyy-MM-dd HH:mm:ss", null);
+                            timeTo.ToString("dd.MM.yyyy HH:mm");
+                            break;
+                        case "Customer":
+                            customer = data.InnerText;
+                            break;
+                        case "ExpectedPersonsCount":
+                            persons = Convert.ToInt32(data.InnerText);
+                            break;
+                        case "VideoConference":
+                            videoConference = Convert.ToBoolean(data.InnerText);
+                            break;
+                        case "Note":
+                            note = data.InnerText;
+                            break;
+                    }                    
+                }
+
+                MeetingPlan loadedMeeting = new MeetingPlan(meetingCenter, meetingRoom, date, timeFrom, timeTo, persons, customer, videoConference, note);
+                meetingPlans.Add(loadedMeeting);
+            }            
+        }
+
+        private void BtnExport_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
