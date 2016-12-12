@@ -1,0 +1,22 @@
+﻿<Window x:Class="SemestralniPrace01.MeetingCenterDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SemestralniPrace01"
+        mc:Ignorable="d"
+        Title="MeetingCenterDialogWindow" Height="270" Width="280">
+    <Grid>
+        <StackPanel>
+            <Label Name="LbNameDialogMc" FontWeight="Bold">Name</Label>
+            <TextBox Name="TbNameDialogMc" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbNameDialogMc_TextChanged"></TextBox>
+            <Label Name="LbCodeDialogMc" FontWeight="Bold">Code</Label>
+            <TextBox Name="TbCodeDialogMc" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbCodeDialogMc_TextChanged"></TextBox>
+            <Label Name="LbDescriptionDialogMc" FontWeight="Bold">Description</Label>
+            <TextBox Name="TbDescriptionDialogMc" Height="60" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbDescriptionDialogMc_TextChanged"></TextBox>
+
+            <Button Name="BtnOkMc" Width="80" Margin="0,20,170,0" Click="BtnOkMc_Click">OK</Button>
+            <Button Name="BtnCancelMc" Width="80" Margin="160,-22,0,0" Click="BtnCancelMc_Click">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>

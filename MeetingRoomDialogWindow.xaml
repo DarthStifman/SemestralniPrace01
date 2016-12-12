@@ -1,0 +1,28 @@
+﻿<Window x:Class="SemestralniPrace01.MeetingRoomDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SemestralniPrace01"
+        mc:Ignorable="d"
+        Title="MeetingRoomDialogWindow" Height="360" Width="280">
+    <Grid>
+        <StackPanel>
+            <Label Name="LbNameDialogMr" FontWeight="Bold">Name</Label>
+            <TextBox Name="TbNameDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbNameDialogMr_TextChanged"></TextBox>
+            <Label Name="LbCodeDialogMr" FontWeight="Bold">Code</Label>
+            <TextBox Name="TbCodeDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbCodeDialogMr_TextChanged"></TextBox>
+            <Label Name="LbDescriptionDialogMr" FontWeight="Bold">Description</Label>
+            <TextBox Name="TbDescriptionDialogMr" Height="40" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbDescriptionDialogMr_TextChanged"></TextBox>
+            <Label Name="LbCapacityDialogMr" FontWeight="Bold">Capacity</Label>
+            <TextBox Name="TbCapacityDialogMr" Height="20" Width="250" HorizontalAlignment="Left" Margin="5,0" TextChanged="TbCapacityDialogMr_TextChanged"></TextBox>
+            <Label Name="LbMeetingCenterDialogMr" FontWeight="Bold">Meeting Center</Label>
+            <ComboBox Name="CbMeetingCenterDialogMr" Width="250" HorizontalAlignment="Left" Margin="5,0" SelectionChanged="CbMeetingCenterDialogMr_SelectionChanged"></ComboBox>
+            <CheckBox x:Name="ChbVideoConferenceDialogMr" Margin="7,10" FontSize="9" FontWeight="Bold">Video Conference</CheckBox>
+            
+
+            <Button Name="BtnOkMr" Width="80" Margin="0,5,170,0" Click="BtnOkMr_Click">OK</Button>
+            <Button Name="BtnCancelMr" Width="80" Margin="160,-22,0,0" Click="BtnCancelMr_Click">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>
