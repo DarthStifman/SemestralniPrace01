@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 
+
 namespace SemestralniPrace01
 {
     /// <summary>
@@ -57,7 +58,9 @@ namespace SemestralniPrace01
         List<MeetingCenter> meetingCenters = new List<MeetingCenter>();
         List<MeetingRoom> meetingRooms = new List<MeetingRoom>();
         List<MeetingPlan> meetingPlans = new List<MeetingPlan>();
-        
+
+        Dictionary<string, string[]> jsonData = new Dictionary<string, string[]>();
+
         //Podle savState je zjisteno, jestli byla data uz ulozena
         private bool saveState;
         //Podle changes je zjisteno, jestli byly provedeny zmeny v datech
@@ -98,8 +101,6 @@ namespace SemestralniPrace01
                     CbMeetingRoomPlanning.Items.Add(room.Code);
                 }
             }
-
-
         }
 
         //Nacteni dat z kolekce rooms do listboxu
@@ -168,7 +169,7 @@ namespace SemestralniPrace01
         }
 
         //Ulozeni dat do souboru
-        //Vytvori csv soubor s kodovani UTF-8.
+        //Vytvori csv soubor s kodovanim UTF-8.
         //Nejdrive zapise vsechny Meeting Centra a pak vsechny Meeting Rooms
         //Po dokonceni operace nebo vyskytu chyby uzavre soubor
         private void SaveToFile()
@@ -502,6 +503,7 @@ namespace SemestralniPrace01
                 if (MessageBox.Show("Do you wish to save changes?", "Save changes", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     SaveToFile();
+                    SaveToXml();
                 }
             }
         }
@@ -540,7 +542,9 @@ namespace SemestralniPrace01
             {
                 meetingPlans.Add(plan);                
             }
-            
+
+            if (newMeetingPlan.meetingChange == true)
+                changes = true;
 
             LoadMeetings(selectedRoomPlanning);
         }
@@ -639,7 +643,9 @@ namespace SemestralniPrace01
                 }
 
                 LoadMeetings(selectedRoomPlanning);
-                Console.WriteLine();
+
+                if (editMeeting.meetingChange == true)
+                    changes = true;
             }
             else
             {
@@ -661,7 +667,7 @@ namespace SemestralniPrace01
 
                     ClearMeetingsDetailTb();
 
-                    //changes = true;
+                    changes = true;
                 }
             }
             else
@@ -757,6 +763,8 @@ namespace SemestralniPrace01
         bool videoConference;
         string note;
 
+        public object JsonConvert { get; private set; }
+
         private void LoadXmlData()
         {
             XmlDocument loadDoc = new XmlDocument();
@@ -817,6 +825,13 @@ namespace SemestralniPrace01
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
         {
+            //for (int i = 0; i < meetingPlans.Count; i++)
+            //{
+            //    jsonData.Add("data", new string[] {meetingPlans[i].MeetingCenterCode, meetingPlans[i].MeetingRoomCode,
+            //        new Dictionary<string, Dictionary<string, string[]>> {"reservation", new Dictionary<string, string[]> {meetingPlans[i].Date.ToString(), new string[] { } } } });
+
+            //}
+
             
         }
     }

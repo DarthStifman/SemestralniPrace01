@@ -26,6 +26,7 @@ namespace SemestralniPrace01
 
         public List<MeetingPlan> newMeeting = new List<MeetingPlan>();
         public List<MeetingPlan> meetingsToCompare = new List<MeetingPlan>();
+        public bool meetingChange;
 
         public int RoomCapacity;
         private bool timeCollision;
@@ -61,8 +62,10 @@ namespace SemestralniPrace01
             }
 
 
-            if ((timeCollision == false) && (timeFrom < timeTo) && ((Convert.ToInt32(TbMeetingExpectedPersonsCount.Text) <= RoomCapacity) && (Convert.ToInt32(TbMeetingExpectedPersonsCount.Text) >= 1)) && 
-                ((TbMeetingCustomer.Text.Length >= 2) && (TbMeetingCustomer.Text.Length <= 100)) && (TbMeetingNote.Text.Length <= 300))
+            if ((TbMeetingHoursFrom.Text.Length == 2) && (TbMeetingMinutesFrom.Text.Length == 2) && (TbMeetingHoursTo.Text.Length == 2) && (TbMeetingMinutesTo.Text.Length == 2) 
+                && (timeCollision == false) && (timeFrom < timeTo) && ((Convert.ToInt32(TbMeetingExpectedPersonsCount.Text) <= RoomCapacity) && 
+                (Convert.ToInt32(TbMeetingExpectedPersonsCount.Text) >= 1)) && ((TbMeetingCustomer.Text.Length >= 2) && (TbMeetingCustomer.Text.Length <= 100)) 
+                && (TbMeetingNote.Text.Length <= 300))
             {
                 
 
@@ -72,12 +75,17 @@ namespace SemestralniPrace01
                 newMeeting.Add(meeting);
 
                 Close();
+                meetingChange = true;
             }
             else
             {
                 if ((Convert.ToInt32(TbMeetingExpectedPersonsCount.Text) > RoomCapacity) || (Convert.ToInt32(TbMeetingExpectedPersonsCount.Text) < 1))
                 {
                     MessageBox.Show("Expected persons count must be in range: 1-" + RoomCapacity);
+                }
+                else if ((TbMeetingHoursFrom.Text.Length != 2) || (TbMeetingMinutesFrom.Text.Length != 2) || (TbMeetingHoursTo.Text.Length != 2) || (TbMeetingMinutesTo.Text.Length != 2))
+                {
+                    MessageBox.Show("Time of the meeting must be in format: HH:mm - HH:mm!");
                 }
                 else if ((TbMeetingCustomer.Text.Length < 2) || (TbMeetingCustomer.Text.Length > 100))
                 {
@@ -102,6 +110,7 @@ namespace SemestralniPrace01
         private void BtnCancelMeeting_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            meetingChange = false;
         }
 
         

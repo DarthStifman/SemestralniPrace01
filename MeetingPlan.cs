@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SemestralniPrace01
 {
+    [Serializable]
     public class MeetingPlan
     {
         public string MeetingCenterCode { get; set; }
